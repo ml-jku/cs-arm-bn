@@ -10,7 +10,7 @@ You might need to adjust the CUDA versions.
 
 # Evaluate your own images
 
-We have uploaded an example folder in Hugging Face to ease playing around with our models and as a reference for how to format the data. But if you have your own images that wou would like to test, you can also se them!
+We have uploaded an example folder in Hugging Face to ease playing around with our models and as a reference for how to format the data. But if you have your own images that wou would like to test, you can also use them!
 You just need to have a folder with the TIFF files and a parquet index file. 
 
 ```bash
