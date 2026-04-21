@@ -1,0 +1,24 @@
+_target_: plt.data.cellprofiler.CellProfilerDataModule
+X: "data/cellpainting_features/source_3_features.npy"
+y: "data/cellpainting_features/source_3_labels.npy"
+metadata: "data/cellpainting_features/source_3_metadata.pq"
+workers: 8 
+metadata_name: "Metadata_Batch"
+batch_size: 128
+seed: 1234
+standardize: True
+
+splitters:
+  outer:
+    n_splits: 5
+    cv: True
+    ratio_test: 0.2
+    group: ${data.metadata_name}
+    shuffle: True
+
+  inner: 
+    n_splits: 1
+    cv: False
+    ratio_test: 0.15
+    group: ${data.metadata_name}
+    shuffle: True

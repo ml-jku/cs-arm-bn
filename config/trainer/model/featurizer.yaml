@@ -1,0 +1,19 @@
+_target_: plt.model.featurizer.Featurizer
+
+featurizer:
+  _target_: plt.model.resnet.ResNet
+  output_dim: 32
+  input_shape: 5
+  block: "bottleneck"
+  layers: [
+            3,
+            4,
+            6,
+            3
+          ]
+  features: True
+
+
+classifier:
+  in_features: 2048
+  out_features: 8 

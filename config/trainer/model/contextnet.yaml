@@ -1,0 +1,6 @@
+_target_: plt.model.contextnet.ContextNet
+
+in_channels: 17
+out_channels: 12
+hidden_dim: 64
+kernel_size: 5

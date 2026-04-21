@@ -1,0 +1,2 @@
+_target_: plt.model.cnn.Net
+output_dim: 10

@@ -1,0 +1,10 @@
+_target_: plt.trainer.ARM_BN.ARM_BN
+
+defaults:
+- model: featurizer
+- optimizer: adam
+- loss: cross_entropy
+- scheduler: cosine
+
+n_epochs: 60
+wandb: True

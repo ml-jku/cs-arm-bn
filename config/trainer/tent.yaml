@@ -1,0 +1,16 @@
+_target_: plt.trainer.TENT.TENT
+
+defaults:
+- model: featurizer
+- optimizer: adam
+- loss: cross_entropy
+- scheduler: cosine
+
+n_epochs: 60
+wandb: True
+n_steps: 1
+episodic: False 
+
+tent_optimizer:
+  _target_: torch.optim.Adam
+  lr: 0.001

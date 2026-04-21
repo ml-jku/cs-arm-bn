@@ -1,0 +1,28 @@
+_target_: plt.trainer.ARM_CML.ARM_CML
+
+adapt_bn: False
+n_context_channels: 12
+n_epochs: 60
+wandb: True
+
+context_net_cfg:
+  _target_: plt.model.contextnet.ContextNet
+  in_channels: 5
+  out_channels: ${trainer.n_context_channels}
+  hidden_dim: 64
+  kernel_size: 5
+
+model:
+  featurizer:
+    input_shape: ${eval:${trainer.n_context_channels} + ${trainer.context_net_cfg.in_channels}}
+
+defaults:
+- model: featurizer
+- optimizer: adam
+- loss: cross_entropy
+- scheduler: cosine
+- _self_
+
+# ++model.featurizer.input_shape:
+# set input channels of main model as out_channels + in_channels
+# set n_context_channels = out_channels

@@ -1,0 +1,10 @@
+_target_: plt.trainer.ERM.ERM
+
+defaults:
+- model: featurizer
+- optimizer: adam
+- loss: cross_entropy
+- scheduler: cosine
+
+n_epochs: 60
+wandb: True

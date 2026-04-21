@@ -1,0 +1,28 @@
+_target_: plt.model.levit_wrapper.LeViTLogitsWrapper
+config:
+  _target_: transformers.LevitConfig
+  image_size: 256
+  num_channels: 5         # change to 5 if needed
+  num_labels: 8           # number of classes
+  hidden_sizes: [128, 256, 384]
+  num_attention_heads: [4, 6, 8]
+  depths: [2, 3, 4]
+  mlp_ratios: [2, 2, 2]
+
+# featurizer:
+#   _target_: vit_pytorch.levit.LeViT
+#   output_dim: 32
+#   input_shape: 5
+#   block: "bottleneck"
+#   layers: [
+#             3,
+#             4,
+#             6,
+#             3
+#           ]
+#   features: True
+
+
+# classifier:
+#   in_features: 2048
+#   out_features: 8 

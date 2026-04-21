@@ -1,0 +1,7 @@
+defaults:
+  - splitter: cross_validator
+  - data: jumpcp
+  - trainer: erm
+
+seed: 1234
+wandb: True

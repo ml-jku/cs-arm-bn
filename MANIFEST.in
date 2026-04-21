@@ -1,0 +1,19 @@
+prune .git
+prune wandb
+prune outputs
+prune runs
+prune logs
+prune notebooks
+prune pretrained_models
+prune 202*
+
+prune plt/.wandb
+prune plt/.wandb_folder
+prune plt/outputs
+prune plt/results
+prune plt/notebooks
+prune plt/202*
+
+global-exclude *.py[cod]
+global-exclude __pycache__
+

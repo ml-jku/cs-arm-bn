@@ -1,0 +1,17 @@
+_target_: plt.trainer.DANN.DANN
+
+defaults:
+- model: gradrev
+- optimizer: adam
+- loss: cross_entropy
+- scheduler: cosine
+
+domain_loss: 
+  _target_: torch.nn.CrossEntropyLoss
+
+featurizer_lr: 1e-3
+classifier_lr: 1e-3
+domain_classifier_lr: 1e-4
+penalty_weight: 0.5
+n_epochs: 60
+wandb: True

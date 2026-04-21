@@ -1,0 +1,10 @@
+_target_: plt.model.resnet.ResNet
+output_dim: 8
+input_shape: 5
+block: "bottleneck"
+layers: [
+          3,
+          4,
+          6,
+          3
+        ]

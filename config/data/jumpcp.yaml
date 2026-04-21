@@ -1,0 +1,42 @@
+_target_: plt.data.dataset.CellPaintingDataModule
+index_file: "data/indices/source_3_poscons.pq"
+variable_name: "Metadata_JCP2022"
+metadata_name: "Metadata_Plate_ID"
+preprocess: "downsize"
+train_res: [224]
+test_res: [224]
+normalize: "dataset"
+channels: [0,1,2]
+source: [3]
+batches: False
+unlabeled: False
+new_wells: False
+batch_size: 32
+workers: 10
+seed: 1234
+groups_per_batch: False
+groups_per_batch_eval: False
+# negative_index: "data/indices/source_3_controls.pq"
+embeddings: False
+rotation: False
+groups: 
+  train : False
+  val : False
+  test : False
+
+
+splitters:
+  outer:
+    n_splits: 5
+    cv: True
+    ratio_test: 0.2
+    group: ${data.metadata_name}
+    shuffle: True
+
+  inner: 
+    n_splits: 1
+    cv: False
+    ratio_test: 0.15
+    group: ${data.metadata_name}
+    shuffle: True
+

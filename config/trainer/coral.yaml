@@ -1,0 +1,12 @@
+_target_: plt.trainer.deepCoral.DeepCoral
+
+defaults:
+- model: featurizer
+- optimizer: adam
+- loss: cross_entropy
+- scheduler: cosine
+
+
+penalty_weight: 0.1
+n_epochs: 60
+wandb: True

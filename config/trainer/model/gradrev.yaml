@@ -1,0 +1,30 @@
+_target_: plt.model.gradrev.GradRev
+
+featurizer:
+  _target_: plt.model.resnet.ResNet
+  input_shape: 5
+  block: "bottleneck"
+  layers: [
+            3,
+            4,
+            6,
+            3
+          ]
+  features: True
+
+classifier:
+  input_dim: 2048
+  hidden_dim: 64
+  n_layers: 2
+  output_dim: 8
+  batchnorm: True
+  dropout: 0.2
+
+
+domain_classifier:
+  input_dim: 2048
+  hidden_dim: 64
+  n_layers: 2
+  output_dim: 9
+  batchnorm: True
+  dropout: 0.2
