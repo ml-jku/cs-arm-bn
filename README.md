@@ -42,7 +42,7 @@ controls = pd.read_parquet("example/plate_index_controls.pq")
 
 perturbed_and_controls = pd.concat([perturbed, controls])
 
-model = PreTrainedARMBN()
+model = PreTrainedCSARMBN()
 
 model.adapt(perturbed_and_controls)
 probs, uncertainty = model.predict(perturbed)

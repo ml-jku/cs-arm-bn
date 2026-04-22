@@ -10,7 +10,7 @@ from hydra.utils import instantiate
 from plt.data.transforms import _transform
 
 
-class PreTrainedARMBN():
+class PreTrainedCSARMBN():
     def __init__(self, path_dir='example/models/pretrained/', config='config/trainer/model/featurizer.yaml', data_root=".", device='cuda:0', **kwargs):
         self.path_dir = Path(path_dir)
         self.data_root = Path(data_root)
