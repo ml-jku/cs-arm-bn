@@ -5,6 +5,8 @@ channels:
 
 dependencies:
   - pip
+  - awscli
+  - pyvips
   - aws-c-auth=0.8.1=h205f482_0
   - aws-c-cal=0.8.1=h1a47875_3
   - aws-c-common=0.10.6=hb9d3cd8_0
@@ -65,4 +67,4 @@ dependencies:
       - torchvision>=0.21.0
       - wandb>=0.19.8
       - git+https://github.com/recursionpharma/maes_microscopy.git@trunk
-      - git+https://github.com/anasf97/plate_effects
+      - git+https://github.com/ml-jku/cs-arm-bn
