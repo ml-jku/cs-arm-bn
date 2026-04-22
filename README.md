@@ -3,7 +3,7 @@
 # Environment setup 
 Create a conda environment using the following command:
 ``` 
-conda env create -f environment 
+conda env create -f environment.yml
 conda activate plt
 ```
 You might need to adjust the CUDA versions. 
