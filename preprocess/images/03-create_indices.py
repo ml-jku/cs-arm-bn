@@ -142,13 +142,6 @@ if __name__ == "__main__":
         # because the result of glob.glob might vary accross machines, but the samples used should be the same
         server_index_file = os.path.join(args.outdir, f"{filename}_server.pq")
 
-        if os.path.isfile(server_index_file):
-            server_index = pd.read_parquet(server_index_file)
-            server_index.set_index("Metadata_Sample_ID", inplace=True)
-            source_index.set_index("Metadata_Sample_ID", inplace=True)
-            source_index = source_index.loc[server_index.index]
-            source_index = source_index.reset_index()
-
         source_controls = source_index[source_index['Metadata_JCP2022'] == "JCP2022_033924"]
         source_poscons = source_index[source_index['Metadata_JCP2022'].isin(POSCONS)]
 
@@ -156,6 +149,13 @@ if __name__ == "__main__":
 
         for mol, pos in pos_to_filter:
             source_poscons = source_poscons[~((source_poscons["Metadata_JCP2022"] == mol) & (source_poscons["Metadata_Well"] == pos))]
+
+        if os.path.isfile(server_index_file):
+            server_index = pd.read_parquet(server_index_file)
+            server_index.set_index("Metadata_Sample_ID", inplace=True)
+            source_poscons.set_index("Metadata_Sample_ID", inplace=True)
+            source_poscons = source_poscons.loc[server_index.index]
+            source_poscons = source_poscons.reset_index()
 
         source_controls = source_controls.astype(str)
         source_poscons = source_poscons.astype(str)
@@ -173,4 +173,4 @@ if __name__ == "__main__":
     all_controls["Metadata_Row"] = all_controls["Metadata_Row"].astype(str)
 
     all_poscons.to_parquet(os.path.join(args.outdir, f"all_poscons.pq"))
-    all_poscons.to_parquet(os.path.join(args.outdir, f"all_controls.pq"))
+    all_controls.to_parquet(os.path.join(args.outdir, f"all_controls.pq"))
