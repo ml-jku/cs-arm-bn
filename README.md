@@ -24,7 +24,7 @@ tar -xzf example.tar.gz
 import pandas as pd
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import LabelEncoder
-from plt.model.pretrained import PreTrainedARMBN
+from plt.model.pretrained import PreTrainedCSARMBN
 
 # COMPOUND ENCODING
 #             'JCP2022_012818': 0 TC-S-7004
