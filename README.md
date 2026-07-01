@@ -92,9 +92,9 @@ export PYTHONPATH="${PYTHONPATH}:${PWD}/maes_microscopy"
 ## Citation 
 If you use CS-ARM-BN in your research, please cite:
 
-```
+``` bibtex
 @inproceedings{sanchezfernandez2026stabilizing,
-  author    = {\textbf{Ana Sanchez-Fernandez} and Thomas Pinetz and Werner Zellingerand Günter Klambauer},
+  author    = {Ana Sanchez-Fernandez and Thomas Pinetz and Werner Zellinger and Günter Klambauer},
   title     = {Stabilizing In-Context Multi-Source Domain Adaptation for Biomedical Images Through Controls},
   booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},
   year      = {2026},
