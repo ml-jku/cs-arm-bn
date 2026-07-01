@@ -2,7 +2,7 @@
 
 This repository contains the code for **CS-ARM-BN**, introduced in the paper **[Stabilizing In-Context Multi-Source Domain Adaptation for Biomedical Images Through Controls](https://arxiv.org/html/2604.20824v2)** by Ana Sanchez-Fernandez, Thomas Pinetz, Werner Zellinger, and Günter Klambauer (2026).
 
-![img](csarmbn.jpg)
+![img](figures/csarmbn.jpg)
 
 
 # Getting started
