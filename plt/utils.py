@@ -9,94 +9,6 @@ from tqdm import tqdm
 from omegaconf import OmegaConf
 
 
-def update_bn_with_full_domain(loader, model, device):
-    model.train()
-
-    curr_batch_mean, curr_batch_var = {}, {}
-    sizes = []
-
-    for nm, m in model.named_modules():
-        if isinstance(m, torch.nn.BatchNorm2d):
-            m.momentum = None
-            m.reset_running_stats()
-
-    with torch.no_grad():
-        for batch in loader:
-            X, y, _ = batch
-            batch_size = X.shape[0]
-
-            X = X.to(device)
-
-            _ = model(X)
-
-            sizes.append(batch_size)
-
-            for nm, m in model.named_modules():
-                if isinstance(m, torch.nn.BatchNorm2d):
-                    mean = m.running_mean * batch_size
-                    var = m.running_var * batch_size
-
-                    curr_batch_mean.setdefault(nm, []).append(mean)
-                    curr_batch_var.setdefault(nm, []).append(var)
-
-                    m.momentum = None
-                    m.reset_running_stats()
-
-        sizes = torch.tensor(sizes)
-
-        for nm, m in model.named_modules():
-            if isinstance(m, torch.nn.BatchNorm2d):
-                curr_mean = torch.stack(curr_batch_mean[nm])
-                curr_var = torch.stack(curr_batch_var[nm])
-                
-                m.running_mean.data = torch.sum(curr_mean, axis=0) / torch.sum(sizes)
-                m.running_var.data = torch.sum(curr_var, axis=0) / torch.sum(sizes)
-
-
-
-def compute_conv2d_output_shape(input_shape, layer):
-    C_in, H_in, W_in = input_shape
-
-    if isinstance(layer, nn.Conv2d) or isinstance(layer, nn.MaxPool2d):
-        kernel_size = _pair(layer.kernel_size)
-        stride = _pair(layer.stride)
-        padding = _pair(layer.padding)
-        dilation = _pair(layer.dilation)
-
-        H_out = math.floor((H_in + 2 * padding[0] - dilation[0] * (kernel_size[0] - 1) - 1) / stride[0] + 1)
-        W_out = math.floor((W_in + 2 * padding[1] - dilation[1] * (kernel_size[1] - 1) - 1) / stride[1] + 1)
-        
-        C_out = layer.out_channels if hasattr(layer, "out_channels") else C_in
-
-        return (C_out, H_out, W_out)
-    
-    elif isinstance(layer, nn.AvgPool2d):
-        kernel_size = _pair(layer.kernel_size)
-        stride = _pair(layer.stride)
-        padding = _pair(layer.padding)
-
-        H_out = math.floor((H_in + 2 * padding[0] - kernel_size[0]) / stride[0] + 1)
-        W_out = math.floor((W_in + 2 * padding[1] - kernel_size[1]) / stride[1] + 1)
-        
-        C_out = layer.out_channels if hasattr(layer, "out_channels") else C_in
-
-        return (C_out, H_out, W_out)
-
-    elif isinstance(layer, nn.AdaptiveAvgPool2d):
-        out_size = _pair(layer.output_size)
-        return (C_in, out_size[0], out_size[1])
-
-    elif isinstance(layer, nn.BatchNorm2d):
-        return input_shape
-
-    elif isinstance(layer, nn.Sequential):
-        for name, child in layer.named_children():
-            input_shape = compute_conv2d_output_shape(input_shape, child) 
-            
-        return input_shape
-    else:
-        raise NotImplementedError(f"{type(layer)} is not implemented")
-
 def _pair(x):
     # Ensure values like kernel_size=3 become (3, 3)
     return x if isinstance(x, tuple) else (x, x)
@@ -125,7 +37,6 @@ def calc_mean_std(loader, get_hist=True):
     for images, _, _  in tqdm(loader):
         b, c, h, w = images.shape
         
-        # TODO: change dim back to [0, 2, 3]
         channels_sum += torch.mean(images, dim=[0, 2, 3])
         channels_sqrd_sum += torch.mean(images ** 2, dim=[0, 2, 3])
         num_batches += 1
