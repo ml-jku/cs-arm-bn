@@ -1,6 +1,6 @@
 # Evaluate CS-ARM-BN in a new source (S3 -> S8 and S8 -> S3)
 CUBLAS_WORKSPACE_CONFIG=:16:8 \
-python main.py \
+python plt/main.py \
   trainer=arm_bn \
   ++trainer.n_epochs=200 \
   ++trainer.optimizer.lr=0.001 \
@@ -8,7 +8,6 @@ python main.py \
   ++trainer.acc_steps=8 \
   ++trainer.scheduler=False \
   ++trainer.first_eval=True \
-  ++trainer.model.auxiliar=False \
   ++trainer.distributed=False \
   ++trainer.full_domain_stats=False \
   \
