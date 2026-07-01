@@ -1,3 +1,10 @@
+# Stabilizing In-Context Multi-Source Domain Adaptation for Biomedical Images Through Controls
+
+This repository contains the code for **CS-ARM-BN**, introduced in the paper **[Stabilizing In-Context Multi-Source Domain Adaptation for Biomedical Images Through Controls](https://arxiv.org/html/2604.20824v2)** by Ana Sanchez-Fernandez, Thomas Pinetz, Werner Zellinger, and Günter Klambauer (2026).
+
+![img](csarmbn.jpg)
+
+
 # Getting started
 
 # Environment setup 
@@ -56,12 +63,16 @@ accuracy_score(labels, probs.argmax(dim=1).cpu())
 # Train your own adaptable models
 
 ## Download the data
+
+To get the data that we used in our experiments, please run the following scripts. 
+
 ``` bash
 preprocess/images/01-download_indices.sh
 preprocess/images/02-download_metadata.sh
 python preprocess/images/03-create_indices.py
 python preprocess/images/04-download_images_aws.py
 ``` 
+Alternatively to step 4, you could directly download the preprocessed data from our [HuggingFace dataset](https://huggingface.co/datasets/anasanchezf/plate_effects/tree/main).
 
 ## Run CS-ARM-BN
 ``` bash
@@ -76,3 +87,14 @@ git clone https://github.com/recursionpharma/maes_microscopy.git
 git clone https://huggingface.co/recursionpharma/OpenPhenom
 export PYTHONPATH="${PYTHONPATH}:${PWD}/maes_microscopy"
 ``` 
+
+
+## Citation 
+If you use CS-ARM-BN in your research, please cite:
+
+@inproceedings{sanchezfernandez2026stabilizing,
+  author    = {\textbf{Ana Sanchez-Fernandez} and Thomas Pinetz and Werner Zellingerand Günter Klambauer},
+  title     = {Stabilizing In-Context Multi-Source Domain Adaptation for Biomedical Images Through Controls},
+  booktitle = {Proceedings of the 43rd International Conference on Machine Learning (ICML)},
+  year      = {2026},
+}
